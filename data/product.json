@@ -1,0 +1,158 @@
+[
+  {
+    "id": "a1f3c9e2-6b2d-4f91-9c1a-2d8e4f7a1b01",
+    "name": "Wireless Mouse",
+    "price": 599,
+    "description": "Ergonomic wireless mouse with USB receiver",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Electronics",
+    "color": "Black",
+    "image": "url"
+  },
+  {
+    "id": "b2e4d8f1-3c7a-4a22-8d5b-1f9a3c6e2b02",
+    "name": "Bluetooth Headphones",
+    "price": 1499,
+    "description": "Noise-cancelling over-ear headphones",
+    "stock": "Out of Stock",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Electronics",
+    "color": "White",
+    "image": "url"
+  },
+  {
+    "id": "c3a9b7d5-8e1c-4d33-9a6f-3e2b7c1d4f03",
+    "name": "Gaming Keyboard",
+    "price": 2499,
+    "description": "Mechanical RGB gaming keyboard",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Electronics",
+    "color": "Black",
+    "image": "url"
+  },
+  {
+    "id": "d4f2e6a1-5b8d-4e44-8c7a-4b1e9d2f6c04",
+    "name": "Smart Watch",
+    "price": 3999,
+    "description": "Fitness tracking smartwatch with heart rate monitor",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Electronics",
+    "color": "Blue",
+    "image": "url"
+  },
+  {
+    "id": "e5c1d3b7-9a2f-4f55-9d8b-5c7e1a3f2d05",
+    "name": "Running Shoes",
+    "price": 1999,
+    "description": "Lightweight running shoes for daily workouts",
+    "stock": "Limited",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Fashion",
+    "color": "Grey",
+    "image": "url"
+  },
+  {
+    "id": "f6b8a2c4-7d3e-4066-8e9c-6d2f4b1a3e06",
+    "name": "Backpack",
+    "price": 899,
+    "description": "Durable backpack with laptop compartment",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Fashion",
+    "color": "Black",
+    "image": "url"
+  },
+  {
+    "id": "a7d3f1b9-2c6e-4177-9f1d-7e3c5a2b4d07",
+    "name": "Water Bottle",
+    "price": 299,
+    "description": "Stainless steel insulated water bottle",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Home",
+    "color": "Silver",
+    "image": "url"
+  },
+  {
+    "id": "b8e4c2d6-1f7a-4288-8a2e-8f4d6b3c5a08",
+    "name": "Office Chair",
+    "price": 5499,
+    "description": "Adjustable ergonomic office chair",
+    "stock": "Out of Stock",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Home",
+    "color": "Black",
+    "image": "url"
+  },
+  {
+    "id": "c9f5d3e7-6a8b-4399-9b3f-9a5e7c4d6b09",
+    "name": "LED Desk Lamp",
+    "price": 799,
+    "description": "Energy-efficient LED desk lamp with brightness control",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Home",
+    "color": "White",
+    "image": "url"
+  },
+  {
+    "id": "d0a6e4f8-5b9c-44aa-8c4a-0b6f8d5e7c10",
+    "name": "Mobile Phone Stand",
+    "price": 199,
+    "description": "Adjustable mobile holder for desk use",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Electronics",
+    "color": "Black",
+    "image": "url"
+  },
+    {
+    "id": "d0a6e4f8-5b9c-44aa-8c4a-0b6f8d5e7c11",
+    "name": "Mobile Phone Stand 2",
+    "price": 199,
+    "description": "Adjustable mobile holder for desk use",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Electronics",
+    "color": "Black",
+    "image": "url"
+  },
+      {
+    "id": "d0a6e4f8-5b9c-44a1-8c4a-0b6f8d5e7c11",
+    "name": "Mobile Phone Stand 3",
+    "price": 199,
+    "description": "Adjustable mobile holder for desk use",
+    "stock": "Available",
+    "subCategory": {
+      "id": "db83f23b-5e8d-49a0-90e0-49c98bbe2c4c"
+    },
+    "type": "Electronics",
+    "color": "Black",
+    "image": "url"
+  }
+]
