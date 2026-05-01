@@ -4,7 +4,7 @@ import { SuccessResponse } from "../common/entitys";
 import { RoleManangement } from "./services";
 import { StatusCodes } from "http-status-codes";
 import { errorHandler } from "../common/errorHandler";
-import { verifyToken } from "../../utils/auth";
+import { verifyToken } from "../../middleware/verifyToken";
 
 
 export const roleRoute = Router();

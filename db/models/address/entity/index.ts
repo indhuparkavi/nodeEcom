@@ -8,6 +8,7 @@ export class Address {
     state: string;
     country: string;
     zip: string;
+    default?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
     user: User;

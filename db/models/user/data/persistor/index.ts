@@ -1,5 +1,7 @@
 import UserModel from "../user";
 import { User } from "../../entity";
+import { Transaction } from "sequelize";
+import Role from "../../../role/data/role";
 
 
 export class UserPersistor {
@@ -13,47 +15,46 @@ export class UserPersistor {
             }
         })
     }
-    async getById(id: string): Promise<User> {
+    async getById(id: string): Promise<User | null> {
         return new Promise(async (res, rej) => {
             try {
                 const user = await UserModel.findOne({
-                    where: { id: id }
+                    where: { id },
+                    include: [
+                        {
+                            model: Role,
+                            as: 'role',
+                            attributes: ['id', 'name']  // pick only what you need
+                        }
+                    ]
                 });
+                if (user) {
+                    res({
+                        id: user.id,
+                        role: {
+                            id: user.role.id,
+                            name: user.role.name,
+                        }
+                    });
+                } else res(null)
+
+            } catch (err) {
+                rej(err)
+            }
+        })
+    }
+
+    async create(data: User, transaction?: Transaction): Promise<User> {
+        return new Promise(async (res, rej) => {
+            try {
+                const user = await UserModel.create({
+                    ...data,
+                    createdAt: new Date(),
+                    roleId: data?.role?.id,
+                    active: true,
+                }, transaction ? { transaction } : {});
                 if (user)
                     res(user);
-            } catch (err) {
-                rej(err)
-            }
-        })
-    }
-
-    async userInfoForLogin(contact: number): Promise<User | null> {
-        return new Promise(async (res, rej) => {
-            try {
-                const user = await UserModel.findOne({
-                    where: { contact: contact }
-                });
-                res(user);
-            } catch (err) {
-                rej(err)
-            }
-        })
-    }
-
-    async create(data: User): Promise<User> {
-        return new Promise(async (res, rej) => {
-            try {
-                if (data.password) {
-                    const user = await UserModel.create({
-                        ...data,
-                        createdAt: new Date(),
-                        roleId: data?.role?.id,
-                        password: data.password,
-                        active: true,
-                    });
-                    if (user)
-                        res(user);
-                }
             } catch (err) {
                 console.log("persist:p", err)
                 rej(err)
@@ -78,13 +79,12 @@ export class UserPersistor {
         })
     }
 
-    async delete(id: string): Promise<number> {
+    async delete(id: string): Promise<void> {
         return new Promise(async (res, rej) => {
             try {
-                const user = await UserModel.destroy({
+                const user = await UserModel.update({ active: false }, {
                     where: { id: id }
                 });
-                res(user);
             } catch (err) {
                 rej(err)
             }

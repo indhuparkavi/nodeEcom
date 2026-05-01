@@ -1,3 +1,4 @@
+import { Transaction } from "sequelize";
 import ProfileModel from "..";
 import { Profile } from "../../entity";
 
@@ -28,21 +29,20 @@ export class ProfilePersistor {
     //     })
     // }
 
-    async getByUserId(userId: string): Promise<Profile> {
+    async getByUserId(userId: string): Promise<Profile | null> {
         return new Promise(async (res, rej) => {
             try {
                 const response = await ProfileModel.findOne({
                     where: { userId: userId }
                 });
-                if (response)
-                    res(response);
+                res(response);
             } catch (err) {
                 rej(err)
             }
         })
     }
 
-    async create(payload: Profile): Promise<Profile> {
+    async create(payload: Profile, transaction?: Transaction): Promise<Profile> {
         return new Promise(async (res, rej) => {
             try {
                 if (!payload.user?.id) {
@@ -53,7 +53,7 @@ export class ProfilePersistor {
                     ...payload,
                     createdAt: new Date(),
                     userId: payload.user.id
-                });
+                }, transaction ? { transaction } : {});
                 if (response)
                     res(response);
             } catch (err) {
@@ -62,14 +62,16 @@ export class ProfilePersistor {
         })
     }
 
-    async update(id: string, payload: Profile): Promise<string> {
+    async update(id: string, payload: Profile, transaction?: Transaction): Promise<string | null> {
         return new Promise(async (res, rej) => {
             try {
                 const response = await ProfileModel.update(payload, {
-                    where: { id: id }
+                    where: { id },
+                    transaction,
                 });
                 if (response[0] > 0)
                     res(id);
+                else res(null)
             } catch (err) {
                 rej(err)
             }

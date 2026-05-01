@@ -1,3 +1,4 @@
+import { Transaction } from "sequelize";
 import { AddressModel } from "..";
 import { Address } from "../../entity";
 
@@ -40,6 +41,20 @@ export class AddressPersistor {
         })
     }
 
+    async getByDefaultAddress(userId: string): Promise<Address> {
+        return new Promise(async (res, rej) => {
+            try {
+                const address = await AddressModel.findOne({
+                    where: { userId: userId, default: true }
+                });
+                if (address)
+                    res(address);
+            } catch (err) {
+                rej(err)
+            }
+        })
+    }
+
     async create(addressInfo: Address): Promise<Address> {
         return new Promise(async (res, rej) => {
             try {
@@ -60,11 +75,12 @@ export class AddressPersistor {
         })
     }
 
-    async update(id: string, address: Address): Promise<string> {
+    async update(id: string, address: Address, transaction?: Transaction): Promise<string> {
         return new Promise(async (res, rej) => {
             try {
                 const addressInfo = await AddressModel.update(address, {
-                    where: { id: id }
+                    where: { id: id },
+                    transaction: transaction
                 });
                 if (addressInfo[0] > 0)
                     res(id);
@@ -74,24 +90,27 @@ export class AddressPersistor {
         })
     }
 
-    async delete(id: string): Promise<number> {
+    async updateDefault(id: string, isDefault: boolean, transaction?: Transaction): Promise<string> {
         return new Promise(async (res, rej) => {
             try {
-                const address = await AddressModel.destroy({
-                    where: { id: id }
+                const addressInfo = await AddressModel.update({ default: isDefault }, {
+                    where: { id: id },
+                    transaction: transaction
                 });
-                res(address);
+                if (addressInfo[0] > 0)
+                    res(id);
             } catch (err) {
                 rej(err)
             }
         })
     }
 
-    async deleteUserAddress(userId: string): Promise<number> {
+    async delete(id: string, transaction?: Transaction): Promise<number> {
         return new Promise(async (res, rej) => {
             try {
                 const address = await AddressModel.destroy({
-                    where: { userId: userId }
+                    where: { id: id },
+                    transaction: transaction
                 });
                 res(address);
             } catch (err) {

@@ -7,10 +7,6 @@ import { AddressModel } from "../../address/data";
 
 export class UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
     declare id: CreationOptional<string>;
-    declare name: string;
-    declare email: CreationOptional<string>;
-    declare contact: number;
-    declare password: string;
     declare roleId: string;
     declare role: NonAttribute<Role>
     declare active: boolean;
@@ -25,21 +21,6 @@ UserModel.init({
         primaryKey: true,
         allowNull: false,
         defaultValue: DataTypes.UUIDV4
-    },
-    name: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-    },
-    contact: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
     },
     roleId: {
         type: DataTypes.UUID,
@@ -64,7 +45,7 @@ UserModel.init({
 
 export default UserModel;
 
-UserModel.belongsTo(Role, { foreignKey: 'roleId' });
+UserModel.belongsTo(Role, { foreignKey: 'roleId', as: 'role' });
 Role.hasMany(UserModel, { foreignKey: 'roleId' });
 
 UserModel.hasOne(ProfileModel, { foreignKey: 'userId' });

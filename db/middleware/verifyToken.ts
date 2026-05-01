@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JsonWebTokenError } from "jsonwebtoken";
 
 export interface AuthRequest extends Request {
     user?: any;
@@ -26,10 +26,13 @@ export const verifyToken = (
 
         const decoded = jwt.verify(token, "secret_key");
 
-        req.user = decoded; // attach user info
+        req.user = decoded;
 
-        next(); // move to next layer
+        next();
     } catch (error) {
+        if (error instanceof JsonWebTokenError) {
+            return res.status(401).json({ message: "Token expired, please login again" });
+        }
         return res.status(401).json({ message: "Unauthorized" });
     }
 };

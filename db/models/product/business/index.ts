@@ -3,6 +3,7 @@ import ApiError from "../../common/entitys";
 import { Product } from "../entity";
 import { ProductPersistor } from "../data/persistor";
 import { SubCategoryManagement } from "../../subCategory/services";
+import { Transaction } from "sequelize";
 
 
 export class ProductManagement {
@@ -44,7 +45,7 @@ export class ProductManagement {
             }
         })
     }
-    async createProduct(payload: Product): Promise<Product> {
+    async createProduct(payload: Product, transaction?: Transaction): Promise<Product> {
         return new Promise(async (res, rej) => {
             try {
                 const err = this.validatorBody(payload);
@@ -56,7 +57,7 @@ export class ProductManagement {
                 if (checkUnique) {
                     return rej(new ApiError(`Product already exist`, StatusCodes.CONFLICT))
                 }
-                const response = productPersistor.create(payload)
+                const response = productPersistor.create(payload, transaction)
                 res(response);
             } catch (err) {
                 console.log(err)

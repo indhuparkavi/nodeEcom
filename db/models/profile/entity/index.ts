@@ -2,7 +2,9 @@ import { User } from "../../user/entity";
 
 export class Profile {
     id?: string;
-    name: string;
+    name?: string;
+    contact?: string;
+    email?: string;
     gender?: string;
     dob?: Date;
     gst?: string;

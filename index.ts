@@ -16,6 +16,7 @@ import { paymentRoute } from "./db/models/payment/routes";
 import { deliveryRoute } from "./db/models/delivery/routes";
 import { ProductManagement } from "./db/models/product/business";
 import fs from 'fs/promises';
+import { authRoute } from "./db/models/auth/routes";
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.use("/api/orders", orderRoute);
 app.use("/api/invoices", invoiceRoute);
 app.use("/api/payments", paymentRoute);
 app.use("/api/deliveries", deliveryRoute);
+app.use("/api", authRoute);
 
 
 app.use((err: any, req: any, res: any, next: any) => {
@@ -50,28 +52,28 @@ const startServer = async () => {
     try {
         await sequelize.authenticate();
         const transaction = await sequelize.transaction()
-        try {
-            const data = await fs.readFile('./data/product.json', 'utf-8');
-            const products = JSON.parse(data);
+        // try {
+        //     const data = await fs.readFile('./data/product.json', 'utf-8');
+        //     const products = JSON.parse(data);
 
 
-            for (const product of products) {
-                try {
-                    const manage = new ProductManagement();
-                    await manage.createProduct(product);
-                } catch (err: any) {
-                    if (err?.statusCode != 409) {
-                        throw err;
-                    }
-                }
-            }
-            await transaction.commit()
-            console.log('Successfully seeded products');
+        //     for (const product of products) {
+        //         try {
+        //             const manage = new ProductManagement();
+        //             await manage.createProduct(product);
+        //         } catch (err: any) {
+        //             if (err?.statusCode != 409) {
+        //                 throw err;
+        //             }
+        //         }
+        //     }
+        //     await transaction.commit()
+        //     console.log('Successfully seeded products');
 
-        } catch (err) {
-            await transaction.rollback()
-            console.error('Failed seeded products');
-        }
+        // } catch (err) {
+        //     await transaction.rollback()
+        //     console.error('Failed seeded products');
+        // }
 
         app.listen(port, () => {
             console.log('App Running');

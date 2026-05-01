@@ -4,7 +4,7 @@ import { CategoryManagement } from "./services";
 import { SuccessResponse } from "../common/entitys";
 import { StatusCodes } from "http-status-codes";
 import { Category } from "./entity";
-import { verifyToken } from "../../utils/auth";
+import { verifyToken } from "../../middleware/verifyToken";
 
 
 export const categoryRoute = Router();

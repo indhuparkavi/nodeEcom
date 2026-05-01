@@ -3,36 +3,27 @@ import { StatusCodes } from "http-status-codes";
 import { UserManagement } from "../business";
 import { SuccessResponse } from "../../common/entitys";
 import { errorHandler } from "../../common/errorHandler";
-import { verifyToken } from "../../../utils/auth";
+import { verifyToken, AuthRequest } from "../../../middleware/verifyToken";
+import { AuthManagement } from "../../auth/business";
+import { User } from "../entity";
+import { userAccess } from "../../../middleware/verifyUserPermission";
 
 
 export const userRoute = Router();
 
-userRoute.get('/', verifyToken,
-    async (req, res) => {
+userRoute.get('/', verifyToken, userAccess,
+    async (req: AuthRequest, res) => {
         try {
             const manage = new UserManagement();
-            res.send(new SuccessResponse(await manage.users(), 'Retrived successfully', StatusCodes.OK));
+            res.send(new SuccessResponse(await manage.users(req.user), 'Retrived successfully', StatusCodes.OK));
         } catch (err) {
             errorHandler(err, req)
         }
     }
 )
 
-userRoute.post('/login',
-    async (req, res) => {
-        try {
-            const manage = new UserManagement();
-            const body = req.body
-            res.send(new SuccessResponse(await manage.loginExistingUser(body)))
-        } catch (err) {
-            return errorHandler(err, res)
-        }
-    }
-)
-
-userRoute.get('/:id', verifyToken,
-    async (req, res) => {
+userRoute.get('/:id', verifyToken, userAccess,
+    async (req: AuthRequest, res) => {
         try {
             const id = req.params.id as string
             const manage = new UserManagement();
@@ -43,7 +34,7 @@ userRoute.get('/:id', verifyToken,
     }
 )
 
-userRoute.post('/',
+userRoute.post('/', verifyToken, userAccess,
     async (req, res) => {
         try {
             const body = req.body;
@@ -55,8 +46,8 @@ userRoute.post('/',
     }
 )
 
-userRoute.delete('/:id', verifyToken,
-    async (req, res) => {
+userRoute.delete('/:id', verifyToken, userAccess,
+    async (req: AuthRequest, res) => {
         try {
             const id = req.params.id as string
             const management = new UserManagement();
@@ -67,16 +58,17 @@ userRoute.delete('/:id', verifyToken,
     }
 )
 
-userRoute.put('/:id', verifyToken,
-    async (req, res) => {
+userRoute.put('/resetPassword', verifyToken, userAccess,
+    async (req: AuthRequest, res) => {
         try {
-            const id = req.params.id as string;
-            const payload = req.body
-            const management = new UserManagement();
-            res.send(new SuccessResponse(await management.update(id, payload), 'Updated successfully', StatusCodes.ACCEPTED))
+            const body = req.body;
+            const user = req.user as User;
+            const management = new AuthManagement();
+            res.send(new SuccessResponse(await management.resetPassword(body, user), 'Updated successfully', StatusCodes.ACCEPTED))
         } catch (err) {
             errorHandler(err, req)
         }
     }
 )
+
 

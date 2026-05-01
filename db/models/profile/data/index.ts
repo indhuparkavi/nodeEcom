@@ -4,7 +4,9 @@ import { sequelize } from '../../../connection';
 export class ProfileModel extends Model<InferAttributes<ProfileModel>, InferCreationAttributes<ProfileModel>> {
     declare id: CreationOptional<string>;
     declare userId: string;
-    declare name: string;
+    declare name: CreationOptional<string>;;
+    declare contact: CreationOptional<string>;
+    declare email: CreationOptional<string>;
     declare gender: CreationOptional<string>;
     declare dob: CreationOptional<Date>;
     declare gst: CreationOptional<string>;
@@ -23,11 +25,16 @@ ProfileModel.init({
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     userId: {
         allowNull: false,
         type: DataTypes.UUID
+    },
+    contact: {
+        type: DataTypes.STRING,
+    },
+    email: {
+        type: DataTypes.STRING,
     },
     gender: {
         type: DataTypes.STRING,

@@ -11,6 +11,7 @@ export class AddressModel extends Model<InferAttributes<AddressModel>, InferCrea
     declare country: string;
     declare zip: string;
     declare userId: string;
+    declare default?: boolean;
     declare user: NonAttribute<User>;
     declare createdAt: CreationOptional<Date>;
     declare updatedAt: CreationOptional<Date>;
@@ -46,6 +47,9 @@ AddressModel.init({
     zip: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    default: {
+        type: DataTypes.BOOLEAN,
     },
     createdAt: DataTypes.DATE,
     updatedAt: {

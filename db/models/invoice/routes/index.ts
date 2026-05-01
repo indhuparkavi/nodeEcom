@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import { SuccessResponse } from "../../common/entitys";
 import { errorHandler } from "../../common/errorHandler";
 import { InvoiceManagement } from "../business";
-import { verifyToken } from "../../../utils/auth";
+import { verifyToken } from "../../../middleware/verifyToken";
 
 export const invoiceRoute = Router();
 

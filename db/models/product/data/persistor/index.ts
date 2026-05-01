@@ -1,3 +1,4 @@
+import { Transaction } from "sequelize";
 import ProductModel from "..";
 import SubCategoryModel from "../../../subCategory/data/subCategory";
 import { Product } from "../../entity";
@@ -65,7 +66,7 @@ export class ProductPersistor {
         })
     }
 
-    async create(payload: Product): Promise<Product> {
+    async create(payload: Product, transaction?: Transaction): Promise<Product> {
         return new Promise(async (res, rej) => {
             try {
                 if (!payload.subCategory?.id) {
@@ -76,7 +77,7 @@ export class ProductPersistor {
                     ...payload,
                     createdAt: new Date(),
                     subCategoryId: payload.subCategory.id
-                });
+                }, transaction ? { transaction } : {});
                 if (response)
                     res(response);
             } catch (err) {
